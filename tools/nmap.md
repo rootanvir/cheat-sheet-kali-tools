@@ -1,4 +1,16 @@
 # Nmap
+
+## Table of Contents
+
+- [Nmap Target Specification](#nmap-target-specification)
+- [Nmap Scan Techniques](#nmap-scan-techniques)
+- [Nmap Host Discovery Options](#nmap-host-discovery-options)
+- [Nmap Port Scanning Options](#nmap-port-scanning-options)
+- [Nmap Service and Version Detection](#nmap-service-and-version-detection)
+- [Nmap Timing and Performance Options](#nmap-timing-and-performance-options)
+- [Nmap Scripting Engine (NSE) Options](#nmap-scripting-engine-nse-options)
+- [Nmap Evasion and Output Options](#nmap-evasion-and-output-options)
+---
 ## Nmap Target Specification
 
 | Switch  | Example                      | Description                     |
