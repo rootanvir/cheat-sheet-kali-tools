@@ -1,5 +1,6 @@
 # Nmap
-
+[Nmap Manual](../manual/nmap.txt)
+---
 ## Table of Contents
 
 - [Nmap Target Specification](#nmap-target-specification)
