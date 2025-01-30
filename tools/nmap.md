@@ -1,5 +1,16 @@
 # Nmap
-[Nmap Manual](../manual/nmap.txt)
+
+
+## Nmap Installation
+
+
+```bash
+    apt install nmap
+```
+Go to nmap [nmap website](https://nmap.org/)
+---
+## Documentattion
+#### Read [Nmap Manual](../manual/nmap.txt)
 ---
 ## Table of Contents
 
