@@ -13,6 +13,9 @@
 #### Read [Crunch Manual](../manual/crunch.txt)
 ---
 # Generate wordlist 
+
+### Usage: crunch \<min\> \<max\> [options]  
+- #### where min and max are numbers
 | Command                                                                 | Description                                                                                                      |
 |-------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
 | `crunch 1 8`                                                            | Displays a wordlist starting at `a` and ending at `zzzzzzzz`.                                                     |
@@ -38,8 +41,7 @@
 
 # Crunch Command Guide
 
-### Usage: crunch \<min\> \<max\> [options]  
-- #### where min and max are numbers
+
 
 
 ## Length Parameters: `8 8`
