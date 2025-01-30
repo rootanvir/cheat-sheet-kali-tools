@@ -1,5 +1,4 @@
-# cheat-sheet-kali-tools
-
+# Cheat Sheet Kali
 
 | Tool | Description   | Logo |
 | ---- | ------------- | ----- |
