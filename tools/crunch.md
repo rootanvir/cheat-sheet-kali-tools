@@ -15,7 +15,7 @@
 # Generate wordlist 
 
 ### Usage: crunch \<min\> \<max\> [options]  
-- #### where  \<min\> and \<max\> are minimum and maximum length of the word list
+- #### where \<min>\ and \<max>\ are the minimum and maximum lengths of the generated words, respectively.
 | Command                                                                 | Description                                                                                                      |
 |-------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
 | `crunch 1 8`                                                            | Displays a wordlist starting at `a` and ending at `zzzzzzzz`.                                                     |
