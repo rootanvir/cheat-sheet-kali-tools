@@ -14,4 +14,4 @@
 # Web Hacking
 | Type | Description   | Logo |
 | ---- | ------------- | ----- |
-| [Sql Injection](./tools/crunch.md) |A SQL injection attack consists of insertion or “injection” of a SQL query via the input data from the client to the application.| <img src="https://github.com/user-attachments/assets/f225db73-3236-4fce-859e-42e34cdf10f4" width="100"/> |
+| [Sql Injection](./web/sqlinjection.md) |A SQL injection attack consists of insertion or “injection” of a SQL query via the input data from the client to the application.| <img src="https://github.com/user-attachments/assets/f225db73-3236-4fce-859e-42e34cdf10f4" width="100"/> |
