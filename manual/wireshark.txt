@@ -1,0 +1,1498 @@
+WIRESHARK(1)                                                                   WIRESHARK(1)
+
+NAME
+       wireshark - Interactively dump and analyze network traffic
+
+SYNOPSIS
+       wireshark [ -i <capture interface>|- ] [ -f <capture filter> ]
+       [ -Y <display filter> ] [ -w <outfile> ] [ options ] [ <infile> ]
+
+       wireshark -h|--help
+
+       wireshark -v|--version
+
+DESCRIPTION
+       Wireshark is a GUI network protocol analyzer. It lets you interactively browse
+       packet data from a live network or from a previously saved capture file. Wireshark's
+       native capture file formats are pcapng format and pcap format; it can read and write
+       both formats.. pcap format is also the format used by tcpdump and various other
+       tools; tcpdump, when using newer versions of the libpcap library, can also read some
+       pcapng files, and, on newer versions of macOS, can read all pcapng files and can
+       write them as well.
+
+       Wireshark can also read / import the following file formats:
+
+       •   Oracle (previously Sun) snoop and atmsnoop captures
+
+       •   Finisar (previously Shomiti) Surveyor captures
+
+       •   Microsoft Network Monitor captures
+
+       •   Novell LANalyzer captures
+
+       •   AIX’s iptrace captures
+
+       •   Cinco Networks NetXRay captures
+
+       •   NETSCOUT (previously Network Associates/Network General) Windows-based Sniffer
+           captures
+
+       •   Network General/Network Associates DOS-based Sniffer captures (compressed or
+           uncompressed)
+
+       •   LiveAction (previously WildPackets/Savvius) *Peek/EtherHelp/PacketGrabber
+           captures
+
+       •   RADCOM's WAN/LAN analyzer captures
+
+       •   Viavi (previously Network Instruments) Observer captures
+
+       •   Lucent/Ascend router debug output
+
+       •   captures from HP-UX nettl
+
+       •   Toshiba’s ISDN routers dump output
+
+       •   the output from i4btrace from the ISDN4BSD project
+
+       •   traces from the EyeSDN USB S0
+
+       •   the IPLog format output from the Cisco Secure Intrusion Detection System
+
+       •   pppd logs (pppdump format)
+
+       •   the output from VMS’s TCPIPtrace/TCPtrace/UCX$TRACE utilities
+
+       •   the text output from the DBS Etherwatch VMS utility
+
+       •   Visual Networks' Visual UpTime traffic capture
+
+       •   the output from CoSine L2 debug
+
+       •   the output from InfoVista (previously Accellent) 5View LAN agents
+
+       •   Endace Measurement Systems' ERF format captures
+
+       •   Linux Bluez Bluetooth stack hcidump -w traces
+
+       •   Catapult DCT2000 .out files
+
+       •   Gammu generated text output from Nokia DCT3 phones in Netmonitor mode
+
+       •   IBM Series (OS/400) Comm traces (ASCII & UNICODE)
+
+       •   Juniper Netscreen snoop files
+
+       •   Symbian OS btsnoop files
+
+       •   TamoSoft CommView files
+
+       •   Tektronix K12xx 32bit .rf5 format files
+
+       •   Tektronix K12 text file format captures
+
+       •   Apple PacketLogger files
+
+       •   Captures from Aethra Telecommunications' PC108 software for their test
+           instruments
+
+       •   Citrix NetScaler Trace files
+
+       •   Android Logcat binary and text format logs
+
+       •   Colasoft Capsa and PacketBuilder captures
+
+       •   Micropross mplog files
+
+       •   Unigraf DPA-400 DisplayPort AUX channel monitor traces
+
+       •   802.15.4 traces from Daintree’s Sensor Network Analyzer
+
+       •   MPEG-2 Transport Streams as defined in ISO/IEC 13818-1
+
+       •   Log files from the candump utility
+
+       •   Logs from the BUSMASTER tool
+
+       •   Ixia IxVeriWave raw captures
+
+       •   Rabbit Labs CAM Inspector files
+
+       •   systemd journal files
+
+       •   3GPP TS 32.423 trace files
+
+       There is no need to tell Wireshark what type of file you are reading; it will
+       determine the file type by itself. Wireshark is also capable of reading any of these
+       file formats if they are compressed using gzip, LZ4, or Zstandard, if compiled with
+       the appropriate support. Wireshark recognizes this directly from the file; the '.gz'
+       or other extension is not required for this purpose.
+
+       Like other protocol analyzers, Wireshark's main window shows 3 views of a packet. It
+       shows a summary line, briefly describing what the packet is. A packet details
+       display is shown, allowing you to drill down to exact protocol or field that you
+       interested in. Finally, a hex dump shows you exactly what the packet looks like when
+       it goes over the wire.
+
+       In addition, Wireshark has some features that make it unique. It can assemble all
+       the packets in a TCP conversation and show you the ASCII (or EBCDIC, or hex) data in
+       that conversation. Display filters in Wireshark are very powerful; more fields are
+       filterable in Wireshark than in other protocol analyzers, and the syntax you can use
+       to create your filters is richer. As Wireshark progresses, expect more and more
+       protocol fields to be allowed in display filters.
+
+       Packet capturing is performed with the pcap library. The capture filter syntax
+       follows the rules of the pcap library. This syntax is different from the display
+       filter syntax.
+
+       Compressed file support uses (and therefore requires) the zlib library. If the zlib
+       library is not present, Wireshark will compile, but will be unable to read
+       compressed files.
+
+       The pathname of a capture file to be read can be specified with the -r option or can
+       be specified as a command-line argument.
+
+OPTIONS
+       Most users will want to start Wireshark without options and configure it from the
+       menus instead. Those users may just skip this section.
+
+       -a|--autostop  <capture autostop condition>
+
+           Specify a criterion that specifies when Wireshark is to stop writing to a
+           capture file. The criterion is of the form test:value, where test is one of:
+
+           duration:value Stop writing to a capture file after value seconds have elapsed.
+           Floating point values (e.g. 0.5) are allowed.
+
+           files:value Stop writing to capture files after value number of files were
+           written.
+
+           filesize:value Stop writing to a capture file after it reaches a size of value
+           kB. If this option is used together with the -b option, Wireshark will stop
+           writing to the current capture file and switch to the next one if filesize is
+           reached. Note that the filesize is limited to a maximum value of 2 TB, although
+           you might have problems viewing the file in the GUI before then if the number of
+           packets exceeds 231 (2147483648).
+
+           packets:value Stop writing to a capture file after it contains value packets.
+           Acts the same as -c<capture packet count>.
+
+       -b|--ring-buffer  <capture ring buffer option>
+
+           Cause Wireshark to run in "multiple files" mode. In "multiple files" mode,
+           Wireshark will write to several capture files. When the first capture file fills
+           up, Wireshark will switch writing to the next file and so on.
+
+           The created filenames are based on the filename given with the -w flag, the
+           number of the file and on the creation date and time, e.g.
+           outfile_00001_20250714120117.pcap, outfile_00002_20250714120523.pcap, ...
+
+           With the files option it’s also possible to form a "ring buffer". This will fill
+           up new files until the number of files specified, at which point Wireshark will
+           discard the data in the first file and start writing to that file and so on. If
+           the files option is not set, new files filled up until one of the capture stop
+           conditions match (or until the disk is full).
+
+           The criterion is of the form key:value, where key is one of:
+
+           duration:value switch to the next file after value seconds have elapsed, even if
+           the current file is not completely filled up. Floating point values (e.g. 0.5)
+           are allowed.
+
+           files:value begin again with the first file after value number of files were
+           written (form a ring buffer). This value must be less than 100000. Caution
+           should be used when using large numbers of files: some filesystems do not handle
+           many files in a single directory well. The files criterion requires one of the
+           other criteria to be specified to control when to go to the next file. It should
+           be noted that each -b parameter takes exactly one criterion; to specify two
+           criteria, each must be preceded by the -b option.
+
+           filesize:value switch to the next file after it reaches a size of value kB. Note
+           that the filesize is limited to a maximum value of 2 TB, although you might have
+           problems viewing the file in the GUI before then if the number of packets
+           exceeds 231 (2147483648).
+
+           interval:value switch to the next file when the time is an exact multiple of
+           value seconds.
+
+           packets:value switch to the next file after it contains value packets.
+
+           Example: -b filesize:1000 -b files:5 results in a ring buffer of five files of
+           size one megabyte each.
+
+       -B|--buffer-size  <capture buffer size>
+
+           Set capture buffer size (in MiB, default is 2 MiB). This is used by the capture
+           driver to buffer packet data until that data can be written to disk. If you
+           encounter packet drops while capturing, try to increase this size. Note that,
+           while Wireshark attempts to set the buffer size to 2 MiB by default, and can be
+           told to set it to a larger value, the system or interface on which you’re
+           capturing might silently limit the capture buffer size to a lower value or raise
+           it to a higher value.
+
+           This is available on UNIX-compatible systems, such as Linux, macOS, \*BSD,
+           Solaris, and AIX, with libpcap 1.0.0 or later, and on Windows. It is not
+           available on UNIX-compatible systems with earlier versions of libpcap.
+
+           This option can occur multiple times. If used before the first occurrence of the
+           -i option, it sets the default capture buffer size. If used after an -i option,
+           it sets the capture buffer size for the interface specified by the last -i
+           option occurring before this option. If the capture buffer size is not set
+           specifically, the default capture buffer size is used instead.
+
+       -c  <capture packet count>
+
+           Set the maximum number of packets to read when capturing live data. Acts the
+           same as -a packets:<capture packet count>.
+
+       -C  <configuration profile>
+
+           Start with the given configuration profile.
+
+       --capture-comment <comment>
+
+           When performing a capture file from the command line, with the -k flag, add a
+           capture comment to the output file, if supported by the capture format.
+
+           This option may be specified multiple times. Note that Wireshark currently only
+           displays the first comment of a capture file.
+
+       -D|--list-interfaces
+
+           Print a list of the interfaces on which Wireshark can capture, and exit. For
+           each network interface, a number and an interface name, possibly followed by a
+           text description of the interface, is printed. The interface name or the number
+           can be supplied to the -i flag to specify an interface on which to capture. The
+           number can be useful on Windows systems, where the interfaces have long names
+           that usually contain a GUID.
+
+       --display <X display to use>
+
+           Specifies the X display to use. A hostname and screen (otherhost:0.0) or just a
+           screen (:0.0) can be specified. This option is not available under macOS or
+           Windows.
+
+       -f  <capture filter>
+
+           Set the capture filter expression.
+
+           This option can occur multiple times. If used before the first occurrence of the
+           -i option, it sets the default capture filter expression. If used after an -i
+           option, it sets the capture filter expression for the interface specified by the
+           last -i option occurring before this option. If the capture filter expression is
+           not set specifically, the default capture filter expression is used if provided.
+
+           Pre-defined capture filter names, as shown in the GUI menu item Capture→Capture
+           Filters, can be used by prefixing the argument with "predef:". Example: -f
+           "predef:MyPredefinedHostOnlyFilter"
+
+       -F  <file format>
+           When performing a capture file from the command line, with the -k option, set
+           the file format of the output capture file written using the -w option. In
+           situations that require the pcapng format, such as capturing from multiple
+           interfaces, this option will be overridden. The option -F without a value will
+           list the available formats. The default is the pcapng format (unless the default
+           has been changed in preferences.)
+
+       This does not support every format to which Wireshark can convert a file; this is
+       intentional for security reasons. Capture in a supported format and then save the
+       file in a different format if so desired.
+
+       --fullscreen
+
+           Start Wireshark in full screen mode (kiosk mode). To exit from fullscreen mode,
+           open the View menu and select the Full Screen option. Alternatively, press the
+           F11 key (or Ctrl + Cmd + F for macOS).
+
+       -g  <packet number>
+           After reading in a capture file using the -r flag, go to the given packet
+           number.
+
+       -h|--help
+           Print the version number and options and exit.
+
+       -H
+           Hide the capture info dialog during live packet capture.
+
+       -i|--interface  <capture interface>|-
+
+           Set the name of the network interface or pipe to use for live packet capture.
+
+           Network interface names should match one of the names listed in "wireshark -D"
+           (described above); a number, as reported by "tshark -D", can also be used.
+
+           If no interface is specified, Wireshark searches the list of interfaces,
+           choosing the first non-loopback interface if there are any non-loopback
+           interfaces, and choosing the first loopback interface if there are no
+           non-loopback interfaces. If there are no interfaces at all, Wireshark reports an
+           error and doesn’t start the capture.
+
+           Pipe names should be either the name of a FIFO (named pipe) or "-" to read data
+           from the standard input. On Windows systems, pipe names must be of the form
+           "\\.\pipe\pipename". Data read from pipes must be in standard pcapng or pcap
+           format. Pcapng data must have the same endianness as the capturing host.
+
+           "TCP@<host>:<port>" causes Wireshark to attempt to connect to the specified port
+           on the specified host and read pcapng or pcap data.
+
+           This option can occur multiple times. When capturing from multiple interfaces,
+           the capture file will be saved in pcapng format.
+
+       -I|--monitor-mode
+
+           Put the interface in "monitor mode"; this is supported only on IEEE 802.11 Wi-Fi
+           interfaces, and supported only on some operating systems.
+
+           Note that in monitor mode the adapter might disassociate from the network with
+           which it’s associated, so that you will not be able to use any wireless networks
+           with that adapter. This could prevent accessing files on a network server, or
+           resolving host names or network addresses, if you are capturing in monitor mode
+           and are not connected to another network with another adapter.
+
+           This option can occur multiple times. If used before the first occurrence of the
+           -i option, it enables the monitor mode for all interfaces. If used after an -i
+           option, it enables the monitor mode for the interface specified by the last -i
+           option occurring before this option.
+
+       -j
+           Use after -J to change the behavior when no exact match is found for the filter.
+           With this option select the first packet before.
+
+       -J  <jump filter>
+
+           After reading in a capture file using the -r flag, jump to the packet matching
+           the filter (display filter syntax). If no exact match is found the first packet
+           after that is selected.
+
+       -k
+
+           Start the capture session immediately. If the -i flag was specified, the capture
+           uses the specified interface. Otherwise, Wireshark searches the list of
+           interfaces, choosing the first non-loopback interface if there are any
+           non-loopback interfaces, and choosing the first loopback interface if there are
+           no non-loopback interfaces; if there are no interfaces, Wireshark reports an
+           error and doesn’t start the capture.
+
+       -l
+           Turn on automatic scrolling if the packet display is being updated automatically
+           as packets arrive during a capture (as specified by the -S flag).
+
+       -L|--list-data-link-types
+           List the data link types supported by the interface and exit.
+
+       --list-time-stamp-types
+           List time stamp types supported for the interface. If no time stamp type can be
+           set, no time stamp types are listed.
+
+       -o  <preference/recent setting>
+
+           Set a preference or recent value, overriding the default value and any value
+           read from a preference/recent file. The argument to the flag is a string of the
+           form prefname:value, where prefname is the name of the preference/recent value
+           (which is the same name that would appear in the preference/recent file), and
+           value is the value to which it should be set. Since Ethereal 0.10.12, the recent
+           settings replaces the formerly used -B, -P and -T flags to manipulate the GUI
+           dimensions.
+
+           If prefname is "uat", you can override settings in various user access tables
+           using the form "uat:uat filename:uat record". uat filename must be the name of a
+           UAT file, e.g. user_dlts. uat_record must be in the form of a valid record for
+           that file, including quotes. For instance, to specify a user DLT from the
+           command line, you would use
+
+               -o "uat:user_dlts:\"User 0 (DLT=147)\",\"cops\",\"0\",\"\",\"0\",\"\""
+
+       -p|--no-promiscuous-mode
+
+           Don’t put the interface into promiscuous mode. Note that the interface might be
+           in promiscuous mode for some other reason; hence, -p cannot be used to ensure
+           that the only traffic that is captured is traffic sent to or from the machine on
+           which Wireshark is running, broadcast traffic, and multicast traffic to
+           addresses received by that machine.
+
+           This option can occur multiple times. If used before the first occurrence of the
+           -i option, no interface will be put into the promiscuous mode. If used after an
+           -i option, the interface specified by the last -i option occurring before this
+           option will not be put into the promiscuous mode.
+
+       -P <path setting>
+
+           Special path settings usually detected automatically. This is used for special
+           cases, e.g. starting Wireshark from a known location on an USB stick.
+
+           The criterion is of the form key:path, where key is one of:
+
+           persconf:path path of personal configuration files, like the preferences files.
+
+           persdata:path path of personal data files, it’s the folder initially opened.
+           After the very first initialization, the recent file will keep the folder last
+           used.
+
+       -r|--read-file  <infile>
+
+           Read packet data from infile, can be any supported capture file format
+           (including compressed files). It’s not possible to use named pipes or stdin
+           here, unlike TShark! To capture from a pipe or from stdin use -i -.
+
+       -R|--read-filter  <read (display) filter>
+
+           When reading a capture file specified with the -r flag, causes the specified
+           filter (which uses the syntax of display filters, rather than that of capture
+           filters) to be applied to all packets read from the capture file; packets not
+           matching the filter are discarded.
+
+       -s|--snapshot-length  <capture snaplen>
+
+           Set the default snapshot length to use when capturing live data. No more than
+           snaplen bytes of each network packet will be read into memory, or saved to disk.
+           A value of 0 specifies a snapshot length of 262144, so that the full packet is
+           captured; this is the default.
+
+           This option can occur multiple times. If used before the first occurrence of the
+           -i option, it sets the default snapshot length. If used after an -i option, it
+           sets the snapshot length for the interface specified by the last -i option
+           occurring before this option. If the snapshot length is not set specifically,
+           the default snapshot length is used if provided.
+
+       -S
+           Automatically update the packet display as packets are coming in.
+
+       --temp-dir <directory>
+
+           Specifies the directory into which temporary files (including capture files) are
+           to be written. The default behavior on UNIX-compatible systems, such as Linux,
+           macOS, \*BSD, Solaris, and AIX, is to use the environment variable $TMPDIR if
+           set, and the system default, typically /tmp, if it is not. On Windows, the
+           %TEMP% environment variable is used, which typically defaults to
+           %USERPROFILE%\AppData\Local\Temp.
+
+       --time-stamp-type <type>
+           Change the interface’s timestamp method. See --list-time-stamp-types.
+
+       --update-interval  <interval>
+           Set the length of time in milliseconds between new packet reports during a
+           capture. Also sets the granularity of file duration conditions. The default
+           value is 100ms.
+
+       -v|--version
+           Print the full version information and exit.
+
+       -w  <outfile>
+           Set the default capture file name, or '-' for standard output.
+
+       -X <eXtension options>
+
+           Specify an option to be passed to an Wireshark module. The eXtension option is
+           in the form extension_key:value, where extension_key can be:
+
+           lua_script:lua_script_filename tells Wireshark to load the given script in
+           addition to the default Lua scripts.
+
+           lua_scriptnum:argument tells Wireshark to pass the given argument to the lua
+           script identified by 'num', which is the number indexed order of the
+           'lua_script' command. For example, if only one script was loaded with '-X
+           lua_script:my.lua', then '-X lua_script1:foo' will pass the string 'foo' to the
+           'my.lua' script. If two scripts were loaded, such as '-X lua_script:my.lua' and
+           '-X lua_script:other.lua' in that order, then a '-X lua_script2:bar' would pass
+           the string 'bar' to the second lua script, namely 'other.lua'.
+
+           read_format:file_format tells Wireshark to use the given file format to read in
+           the file (the file given in the -r command option).
+
+           stdin_descr:description tells Wireshark to use the given description when
+           capturing from standard input (-i -).
+
+       -y|--linktype  <capture link type>
+
+           If a capture is started from the command line with -k, set the data link type to
+           use while capturing packets. The values reported by -L are the values that can
+           be used.
+
+           This option can occur multiple times. If used before the first occurrence of the
+           -i option, it sets the default capture link type. If used after an -i option, it
+           sets the capture link type for the interface specified by the last -i option
+           occurring before this option. If the capture link type is not set specifically,
+           the default capture link type is used if provided.
+
+       -Y|--display-filter  <displaY filter>
+           Start with the given display filter.
+
+       -z  <statistics>
+
+           Get Wireshark to collect various types of statistics and display the result in a
+           window that updates in semi-real time.
+
+           Some of the currently implemented statistics are:
+
+       -z help
+           Display all possible values for -z.
+
+       -z afp,srt[,filter]
+
+           Show Apple Filing Protocol service response time statistics.
+
+       -z conv,type[,filter]
+
+           Create a table that lists all conversations that could be seen in the capture.
+           type specifies the conversation endpoint types for which we want to generate the
+           statistics; currently the supported ones are:
+
+               "eth"   Ethernet addresses
+               "fc"    Fibre Channel addresses
+               "fddi"  FDDI addresses
+               "ip"    IPv4 addresses
+               "ipv6"  IPv6 addresses
+               "ipx"   IPX addresses
+               "tcp"   TCP/IP socket pairs   Both IPv4 and IPv6 are supported
+               "tr"    Token Ring addresses
+               "udp"   UDP/IP socket pairs   Both IPv4 and IPv6 are supported
+
+           If the optional filter is specified, only those packets that match the filter
+           will be used in the calculations.
+
+           The table is presented with one line for each conversation and displays the
+           number of packets/bytes in each direction as well as the total number of
+           packets/bytes. By default, the table is sorted according to the total number of
+           packets.
+
+           These tables can also be generated at runtime by selecting the appropriate
+           conversation type from the menu "Tools/Statistics/Conversation List/".
+
+       -z dcerpc,srt,name-or-uuid,major.minor[,filter]
+
+           Collect call/reply SRT (Service Response Time) data for DCERPC interface name or
+           uuid, version major.minor. Data collected is the number of calls for each
+           procedure, MinSRT, MaxSRT and AvgSRT. Interface name and uuid are
+           case-insensitive.
+
+           Example: -z dcerpc,srt,12345778-1234-abcd-ef00-0123456789ac,1.0 will collect
+           data for the CIFS SAMR Interface.
+
+           This option can be used multiple times on the command line.
+
+           If the optional filter  is provided, the stats will only be calculated on those
+           calls that match that filter.
+
+           Example: -z dcerpc,srt,12345778-1234-abcd-ef00-0123456789ac,1.0,ip.addr==1.2.3.4
+           will collect SAMR SRT statistics for a specific host.
+
+       -z dhcp,stat[,filter]
+           Show DHCP (BOOTP) statistics.
+
+       -z expert
+           Show expert information.
+
+       -z fc,srt[,filter]
+
+           Collect call/reply SRT (Service Response Time) data for FC. Data collected is
+           the number of calls for each Fibre Channel command, MinSRT, MaxSRT and AvgSRT.
+
+           Example: -z fc,srt will calculate the Service Response Time as the time delta
+           between the First packet of the exchange and the Last packet of the exchange.
+
+           The data will be presented as separate tables for all normal FC commands, Only
+           those commands that are seen in the capture will have its stats displayed.
+
+           This option can be used multiple times on the command line.
+
+           If the optional filter is provided, the stats will only be calculated on those
+           calls that match that filter.
+
+           Example: -z "fc,srt,fc.id==01.02.03" will collect stats only for FC packets
+           exchanged by the host at FC address 01.02.03 .
+
+       -z h225,counter[,filter]
+
+           Count ITU-T H.225 messages and their reasons. In the first column you get a list
+           of H.225 messages and H.225 message reasons which occur in the current capture
+           file. The number of occurrences of each message or reason is displayed in the
+           second column.
+
+           Example: -z h225,counter
+
+           This option can be used multiple times on the command line.
+
+           If the optional filter is provided, the stats will only be calculated on those
+           calls that match that filter.
+
+           Example: -z "h225,counter,ip.addr==1.2.3.4" will collect stats only for H.225
+           packets exchanged by the host at IP address 1.2.3.4 .
+
+       -z h225,srt[,filter]
+
+           Collect request/response SRT (Service Response Time) data for ITU-T H.225 RAS.
+           Data collected is the number of calls of each ITU-T H.225 RAS Message Type,
+           Minimum SRT, Maximum SRT, Average SRT, Minimum in Packet, and Maximum in Packet.
+           You will also get the number of Open Requests (Unresponded Requests), Discarded
+           Responses (Responses without matching request) and Duplicate Messages.
+
+           Example: -z h225,srt
+
+           This option can be used multiple times on the command line.
+
+           If the optional filter is provided, the stats will only be calculated on those
+           calls that match that filter.
+
+           Example: -z "h225,srt,ip.addr==1.2.3.4" will collect stats only for ITU-T H.225
+           RAS packets exchanged by the host at IP address 1.2.3.4 .
+
+       -z io,stat
+
+           Collect packet/bytes statistics for the capture in intervals of 1 second. This
+           option will open a window with up to 5 color-coded graphs where
+           number-of-packets-per-second or number-of-bytes-per-second statistics can be
+           calculated and displayed.
+
+           This option can be used multiple times on the command line.
+
+           This graph window can also be opened from the Analyze:Statistics:Traffic:IO-Stat
+           menu item.
+
+       -z ldap,srt[,filter]
+
+           Collect call/reply SRT (Service Response Time) data for LDAP. Data collected is
+           the number of calls for each implemented LDAP command, MinSRT, MaxSRT and
+           AvgSRT.
+
+           Example: -z ldap,srt will calculate the Service Response Time as the time delta
+           between the Request and the Response.
+
+           The data will be presented as separate tables for all implemented LDAP commands,
+           Only those commands that are seen in the capture will have its stats displayed.
+
+           This option can be used multiple times on the command line.
+
+           If the optional filter is provided, the stats will only be calculated on those
+           calls that match that filter.
+
+           Example: use -z "ldap,srt,ip.addr==10.1.1.1" will collect stats only for LDAP
+           packets exchanged by the host at IP address 10.1.1.1 .
+
+           The only LDAP commands that are currently implemented and for which the stats
+           will be available are: BIND SEARCH MODIFY ADD DELETE MODRDN COMPARE EXTENDED
+
+       -z megaco,srt[,filter]
+
+           Collect request/response SRT (Service Response Time) data for MEGACO. (This is
+           similar to -z smb,srt). Data collected is the number of calls for each known
+           MEGACO Command, Minimum SRT, Maximum SRT and Average SRT.
+
+           Example: -z megaco,srt
+
+           This option can be used multiple times on the command line.
+
+           If the optional filter is provided, the stats will only be calculated on those
+           calls that match that filter.
+
+           Example: -z "megaco,srt,ip.addr==1.2.3.4" will collect stats only for MEGACO
+           packets exchanged by the host at IP address 1.2.3.4 .
+
+       -z mgcp,srt[,filter]
+
+           Collect request/response SRT (Service Response Time) data for MGCP. (This is
+           similar to -z smb,srt). Data collected is the number of calls for each known
+           MGCP Type, Minimum SRT, Maximum SRT and Average SRT.
+
+           Example: -z mgcp,srt
+
+           This option can be used multiple times on the command line.
+
+           If the optional filter is provided, the stats will only be calculated on those
+           calls that match that filter.
+
+           Example: -z "mgcp,srt,ip.addr==1.2.3.4" will collect stats only for MGCP packets
+           exchanged by the host at IP address 1.2.3.4 .
+
+       -z mtp3,msus[,<filter>]
+           Show MTP3 MSU statistics.
+
+       -z multicast,stat[,<filter>]
+           Show UDP multicast stream statistics.
+
+       -z rpc,programs
+
+           Collect call/reply SRT data for all known ONC-RPC programs/versions. Data
+           collected is the number of calls for each protocol/version, MinSRT, MaxSRT and
+           AvgSRT.
+
+       -z rpc,srt,name-or-number,version[,<filter>]
+
+           Collect call/reply SRT (Service Response Time) data for program name/version or
+           number/version. Data collected is the number of calls for each procedure,
+           MinSRT, MaxSRT and AvgSRT. Program name is case-insensitive.
+
+           Example: -z rpc,srt,100003,3 will collect data for NFS v3.
+
+           This option can be used multiple times on the command line.
+
+           If the optional filter is provided, the stats will only be calculated on those
+           calls that match that filter.
+
+           Example: -z rpc,srt,nfs,3,nfs.fh.hash==0x12345678 will collect NFS v3 SRT
+           statistics for a specific file.
+
+       -z scsi,srt,cmdset[,<filter>]
+
+           Collect call/reply SRT (Service Response Time) data for SCSI commandset
+           <cmdset>.
+
+           Commandsets are 0:SBC   1:SSC  5:MMC
+
+           Data collected is the number of calls for each procedure, MinSRT, MaxSRT and
+           AvgSRT.
+
+           Example: -z scsi,srt,0 will collect data for SCSI BLOCK COMMANDS (SBC).
+
+           This option can be used multiple times on the command line.
+
+           If the optional filter is provided, the stats will only be calculated on those
+           calls that match that filter.
+
+           Example: -z scsi,srt,0,ip.addr==1.2.3.4 will collect SCSI SBC SRT statistics for
+           a specific iscsi/ifcp/fcip host.
+
+       -z sip,stat[,filter]
+
+           This option will activate a counter for SIP messages. You will get the number of
+           occurrences of each SIP Method and of each SIP Status-Code. Additionally you
+           also get the number of resent SIP Messages (only for SIP over UDP).
+
+           Example: -z sip,stat
+
+           This option can be used multiple times on the command line.
+
+           If the optional filter is provided, the stats will only be calculated on those
+           calls that match that filter.
+
+           Example: -z "sip,stat,ip.addr==1.2.3.4" will collect stats only for SIP packets
+           exchanged by the host at IP address 1.2.3.4 .
+
+       -z smb,srt[,filter]
+
+           Collect call/reply SRT (Service Response Time) data for SMB. Data collected is
+           the number of calls for each SMB command, MinSRT, MaxSRT and AvgSRT.
+
+           Example: -z smb,srt
+
+           The data will be presented as separate tables for all normal SMB commands, all
+           Transaction2 commands and all NT Transaction commands. Only those commands that
+           are seen in the capture will have their stats displayed. Only the first command
+           in a xAndX command chain will be used in the calculation. So for common
+           SessionSetupAndX + TreeConnectAndX chains, only the SessionSetupAndX call will
+           be used in the statistics. This is a flaw that might be fixed in the future.
+
+           This option can be used multiple times on the command line.
+
+           If the optional filter is provided, the stats will only be calculated on those
+           calls that match that filter.
+
+           Example: -z "smb,srt,ip.addr==1.2.3.4" will collect stats only for SMB packets
+           exchanged by the host at IP address 1.2.3.4 .
+
+       -z voip,calls
+
+           This option will show a window that shows VoIP calls found in the capture file.
+           This is the same window shown as when you go to the Statistics Menu and choose
+           VoIP Calls.
+
+           Example: -z voip,calls
+
+       -z wlan,stat[,<filter>]
+           Show IEEE 802.11 network and station statistics.
+
+       -z wsp,stat[,<filter>]
+           Show WSP packet counters.
+
+DISSECTION OPTIONS
+       -d  <layer type>==<selector>,<decode-as protocol>
+
+           Like Wireshark’s Decode As... feature, this lets you specify how a layer type
+           should be dissected. If the layer type in question (for example, tcp.port or
+           udp.port for a TCP or UDP port number) has the specified selector value, packets
+           should be dissected as the specified protocol.
+
+           Example 1. Decode As Port
+
+               -d tcp.port==8888,http will decode any traffic running over TCP port 8888 as
+               HTTP.
+
+           See the tshark(1) manual page for more examples.
+
+       --disable-all-protocols
+           Disable dissection of all protocols.
+
+       --disable-protocol <proto_name>[,<proto_name>,...]
+           Disable dissection of proto_name. Use a proto_name of ALL to override your
+           chosen profile’s default enabled protocol list and temporarily disable all
+           protocols.
+
+       --disable-heuristic <short_name>
+           Disable dissection of heuristic protocol.
+
+       --enable-protocol <proto_name>[,<proto_name>,...]
+
+           Enable dissection of proto_name. Use a proto_name of ALL to override your chosen
+           profile’s default disabled protocol list and temporarily enable all protocols
+           which are enabled by default.
+
+           If a protocol is implicated in both --disable-protocol and --enable-protocol,
+           the protocol is enabled. This allows you to temporarily disable all protocols
+           but a list of exceptions. Example: --disable-protocol ALL --enable-protocol
+           eth,ip
+
+       --enable-heuristic <short_name>
+           Enable dissection of heuristic protocol.
+
+       -K  <keytab>
+
+           Load kerberos crypto keys from the specified keytab file. This option can be
+           used multiple times to load keys from several files.
+
+           Example: -K krb5.keytab
+
+       -n
+           Disable network object name resolution (such as hostname, TCP and UDP port
+           names); the -N option might override this one.
+
+       -N  <name resolving flags>
+
+           Turn on name resolving only for particular types of addresses and port numbers,
+           with name resolving for other types of addresses and port numbers turned off.
+           This option (along with -n) can be specified multiple times; the last value
+           given overrides earlier ones. This option and -n override the options from the
+           preferences, including preferences set via the -o option. If both -N and -n
+           options are not present, the values from the preferences are used, which default
+           to -N dmN.
+
+           The argument is a string that may contain the letters:
+
+           d to enable resolution from captured DNS packets
+
+           g to enable IP address geolocation information lookup from configured MaxMind
+           databases
+
+           m to enable MAC address resolution
+
+           n to enable network address resolution
+
+           N to enable using external resolvers (e.g., DNS) for network address resolution;
+           no effect without n also enabled.
+
+           s to enable address resolution using SNI information found in captured handshake
+           packets
+
+           t to enable transport-layer port number resolution
+
+           v to enable VLAN IDs to names resolution
+
+       --only-protocols <protocols>
+           Only enable dissection of these protocols, comma separated. Disable everything
+           else.
+
+       -t  (a|ad|adoy|d|dd|e|r|u|ud|udoy)[.[N]]|.[N]
+
+           Set the format of the packet timestamp displayed in the default time column. The
+           format can be one of:
+
+           a absolute: The absolute time, as local time in your time zone, is the actual
+           time the packet was captured, with no date displayed
+
+           ad absolute with date: The absolute date, displayed as YYYY-MM-DD, and time, as
+           local time in your time zone, is the actual time and date the packet was
+           captured
+
+           adoy absolute with date using day of year: The absolute date, displayed as
+           YYYY/DOY, and time, as local time in your time zone, is the actual time and date
+           the packet was captured
+
+           d delta: The delta time is the time since the previous packet was captured
+
+           dd delta_displayed: The delta_displayed time is the time since the previous
+           displayed packet was captured
+
+           e epoch: The time in seconds since epoch (Jan 1, 1970 00:00:00)
+
+           r relative: The relative time is the time elapsed between the first packet and
+           the current packet
+
+           u UTC: The absolute time, as UTC, is the actual time the packet was captured,
+           with no date displayed
+
+           ud UTC with date: The absolute date, displayed as YYYY-MM-DD, and time, as UTC,
+           is the actual time and date the packet was captured
+
+           udoy UTC with date using day of year: The absolute date, displayed as YYYY/DOY,
+           and time, as UTC, is the actual time and date the packet was captured
+
+           .[N] Set the precision: N is the number of decimals (0 through 9). If using "."
+           without N, automatically determine precision from trace.
+
+           The default format is relative with precision based on capture format.
+
+       -u <s|hms>
+
+           Specifies how packet timestamp formats in -t which are relative times (i.e.
+           relative, delta, and delta_displayed) are displayed. Valid choices are:
+
+           s for seconds
+
+           hms for hours, minutes, and seconds
+
+           The default format is seconds.
+
+DIAGNOSTIC OPTIONS
+       --log-level <level>
+           Set the active log level. Supported levels in lowest to highest order are
+           "noisy", "debug", "info", "message", "warning", "critical", and "error".
+           Messages at each level and higher will be printed, for example "warning" prints
+           "warning", "critical", and "error" messages and "noisy" prints all messages.
+           Levels are case insensitive.
+
+       --log-fatal <level>
+           Abort the program if any messages are logged at the specified level or higher.
+           For example, "warning" aborts on any "warning", "critical", or "error" messages.
+
+       --log-domains <list>
+           Only print messages for the specified log domains, e.g. "GUI,Epan,sshdump". List
+           of domains must be comma-separated. Can be negated with "!" as the first
+           character (inverts the match).
+
+       --log-debug <list>
+           Force the specified domains to log at the "debug" level. List of domains must be
+           comma-separated. Can be negated with "!" as the first character (inverts the
+           match).
+
+       --log-noisy <list>
+           Force the specified domains to log at the "noisy" level. List of domains must be
+           comma-separated. Can be negated with "!" as the first character (inverts the
+           match).
+
+       --log-fatal-domains <list>
+           Abort the program if any messages are logged for the specified log domains. List
+           of domains must be comma-separated.
+
+       --log-file <path>
+           Write log messages and stderr output to the specified file.
+
+INTERFACE
+       The Wireshark User’s Guide <https://www.wireshark.org/docs/wsug_html_chunked/>
+       contains a description of the user interface. It also may be installed locally along
+       with Wireshark. Pressing the F1 key will attempt to open the guide locally if
+       present, falling back to the online guide if not.
+
+CAPTURE FILTER SYNTAX
+       See the manual page of pcap-filter(7) or, if that doesn’t exist, tcpdump(8), or, if
+       that doesn’t exist, https://wiki.wireshark.org/CaptureFilters.
+
+DISPLAY FILTER SYNTAX
+       For a complete table of protocol and protocol fields that are filterable in
+       Wireshark see the wireshark-filter(4) manual page.
+
+FILES
+       These files contain various Wireshark configuration settings.
+
+       Preferences
+
+           The preferences files contain global (system-wide) and personal preference
+           settings. If the system-wide preference file exists, it is read first,
+           overriding the default settings. If the personal preferences file exists, it is
+           read next, overriding any previous values. Note: If the command line flag -o is
+           used (possibly more than once), it will in turn override values from the
+           preferences files.
+
+           The preferences settings are in the form prefname:value, one per line, where
+           prefname is the name of the preference and value is the value to which it should
+           be set; white space is allowed between : and value. A preference setting can be
+           continued on subsequent lines by indenting the continuation lines with white
+           space. A # character starts a comment that runs to the end of the line:
+
+               # Vertical scrollbars should be on right side?
+               # TRUE or FALSE (case-insensitive).
+               gui.scrollbar_on_right: TRUE
+
+           The global preferences file is looked for in the wireshark directory under the
+           share subdirectory of the main installation directory. On macOS, this would
+           typically be /Application/Wireshark.app/Contents/Resources/share; on other
+           UNIX-compatible systems, such as Linux, \*BSD, Solaris, and AIX, this would
+           typically be /usr/share/wireshark/preferences for system-installed packages and
+           /usr/local/share/wireshark/preferences for locally-installed packages; on
+           Windows, this would typically be C:\Program Files\Wireshark\preferences.
+
+           On UNIX-compatible systems, the personal preferences file is looked for in
+           $XDG_CONFIG_HOME/wireshark/preferences, (or, if $XDG_CONFIG_HOME/wireshark does
+           not exist while $HOME/.wireshark does exist, $HOME/.wireshark/preferences); this
+           is typically $HOME/.config/wireshark/preferences. On Windows, the personal
+           preferences file is looked for in %APPDATA%\Wireshark\preferences (or, if
+           %APPDATA% isn’t defined, %USERPROFILE%\Application Data\Wireshark\preferences).
+
+           Note: Whenever the preferences are saved by using the Save button in the
+           Edit:Preferences dialog box, your personal preferences file will be overwritten
+           with the new settings, destroying any comments and unknown/obsolete settings
+           that were in the file.
+
+       Recent
+
+           The recent file contains personal settings (mostly GUI related) such as the
+           current Wireshark window size. The file is saved at program exit and read in at
+           program start automatically. Note: The command line flag -o may be used to
+           override settings from this file.
+
+           The settings in this file have the same format as in the preferences files, and
+           the same directory as for the personal preferences file is used.
+
+           Note: Whenever Wireshark is closed, your recent file will be overwritten with
+           the new settings, destroying any comments and unknown/obsolete settings that
+           were in the file.
+
+       Disabled (Enabled) Protocols
+
+           The disabled_protos files contain system-wide and personal lists of protocols
+           that have been disabled, so that their dissectors are never called. The files
+           contain protocol names, one per line, where the protocol name is the same name
+           that would be used in a display filter for the protocol:
+
+               http
+               tcp     # a comment
+
+           If a protocol is listed in the global disabled_protos file it cannot be enabled
+           by the user. Thus it is not displayed in the Analyze::Enabled Protocols dialog
+           box.
+
+           The global disabled_protos file uses the same directory as the global
+           preferences file.
+
+           The personal disabled_protos file uses the same directory as the personal
+           preferences file.
+
+           The disabled_protos files list only protocols that are enabled by default but
+           have been disabled; protocols that are disabled by default (such as some
+           postdissectors) are not listed. There are analogous enabled_protos files for
+           protocols that are disabled by default but have been enabled.
+
+           Note: Whenever the disabled protocols list is saved by using the Save button in
+           the Analyze:Enabled Protocols dialog box, your personal disabled protocols file
+           will be overwritten with the new settings, destroying any comments that were in
+           the file.
+
+       Heuristic Dissectors
+
+           The heuristic_protos files contain system-wide and personal lists of heuristic
+           dissectors and indicate whether they are enabled or disabled. The files contain
+           heuristic dissector unique short names, one per line, followed by a comma and 0
+           for disabled and 1 for enabled:
+
+               quic,1
+               rtcp_stun,1
+               rtcp_udp,1
+               rtp_stun,0
+               rtp_udp,0
+               tls_tcp,1
+
+           The global heuristic_protos file uses the same directory as the global
+           preferences file.
+
+           The personal heuristic_protos file uses the same directory as the personal
+           preferences file.
+
+       Name Resolution (hosts)
+
+           Entries in hosts files in the global and personal preferences directory are used
+           to resolve IPv4 and IPv6 addresses before any other attempts are made to resolve
+           them. The file has the standard hosts file syntax; each line contains one IP
+           address and name, separated by whitespace. The personal hosts file, if present,
+           overrides the one in the global directory.
+
+           Capture filter name resolution is handled by libpcap on UNIX-compatible systems,
+           such as Linux, macOS, \*BSD, Solaris, and AIX, and Npcap or WinPcap on Windows.
+           As such the Wireshark personal hosts file will not be consulted for capture
+           filter name resolution.
+
+       Name Resolution (subnets)
+
+           If an IPv4 address cannot be translated via name resolution (no exact match is
+           found) then a partial match is attempted via the subnets file. Both the global
+           subnets file and personal subnets files are used if they exist.
+
+           Each line of this file consists of an IPv4 address, a subnet mask length
+           separated only by a / and a name separated by whitespace. While the address must
+           be a full IPv4 address, any values beyond the mask length are subsequently
+           ignored.
+
+           An example is:
+
+           # Comments must be prepended by the # sign! 192.168.0.0/24 ws_test_network
+
+           A partially matched name will be printed as "subnet-name.remaining-address". For
+           example, "192.168.0.1" under the subnet above would be printed as
+           "ws_test_network.1"; if the mask length above had been 16 rather than 24, the
+           printed address would be "ws_test_network.0.1".
+
+       Name Resolution (ethers)
+
+           The ethers files are consulted to correlate 6-byte hardware addresses to names.
+           First the personal ethers file is tried and if an address is not found there the
+           global ethers file is tried next.
+
+           Each line contains one hardware address and name, separated by whitespace. The
+           digits of the hardware address are separated by colons (:), dashes (-) or
+           periods (.). The same separator character must be used consistently in an
+           address. The following three lines are valid lines of an ethers file:
+
+               ff:ff:ff:ff:ff:ff          Broadcast
+               c0-00-ff-ff-ff-ff          TR_broadcast
+               00.00.00.00.00.00          Zero_broadcast
+
+           The global ethers file is looked for in the /etc directory on UNIX-compatible
+           systems, such as Linux, macOS, \*BSD, Solaris, and AIX, and in the main
+           installation directory (for example, C:\Program Files\Wireshark) on Windows
+           systems.
+
+           The personal ethers file is looked for in the same directory as the personal
+           preferences file.
+
+           Capture filter name resolution is handled by libpcap on UNIX-compatible systems
+           and Npcap or WinPcap on Windows. As such the Wireshark personal ethers file will
+           not be consulted for capture filter name resolution.
+
+       Name Resolution (manuf)
+
+           The manuf file is used to match the 3-byte vendor portion of a 6-byte hardware
+           address with the manufacturer’s name; it can also contain well-known MAC
+           addresses and address ranges specified with a netmask. The format of the file is
+           similar the ethers files, except that entries such as:
+
+               00:00:0C      Cisco     Cisco Systems, Inc
+
+           can be provided, with the 3-byte OUI and both an abbreviated and long name for a
+           vendor, and entries such as:
+
+               00-00-0C-07-AC/40     All-HSRP-routers
+
+           can be specified, with a MAC address and a mask indicating how many bits of the
+           address must match. The above entry, for example, has 40 significant bits, or 5
+           bytes, and would match addresses from 00-00-0C-07-AC-00 through
+           00-00-0C-07-AC-FF. The mask need not be a multiple of 8.
+
+           A global manuf file is looked for in the same directory as the global
+           preferences file, and a personal manuf file is looked for in the same directory
+           as the personal preferences file.
+
+           In earlier versions of Wireshark, official information from the IEEE
+           Registration Authority was distributed in this format as the global manuf file.
+           This information is now compiled in to speed program startup, but the internal
+           information can be written out in this format with tshark -G manuf.
+
+           In addition to the manuf file, another file with the same format, wka, is looked
+           for in the global directory. This file is distributed with Wireshark, and
+           contains data about well-known MAC adddresses and address ranges assembled from
+           various non IEEE but respected sources.
+
+       Name Resolution (services)
+
+           The services file is used to translate port numbers into names. Both the global
+           services file and personal services files are used if they exist.
+
+           The file has the standard services file syntax; each line contains one (service)
+           name and one transport identifier separated by white space. The transport
+           identifier includes one port number and one transport protocol name (typically
+           tcp, udp, or sctp) separated by a /.
+
+           An example is:
+
+           mydns       5045/udp     # My own Domain Name Server mydns       5045/tcp     #
+           My own Domain Name Server
+
+           In earlier versions of Wireshark, official information from the IANA Registry
+           was distributed in this format as the global services file. This information is
+           now compiled in to speed program startup, but the internal information can be
+           written out in this format with tshark -G services.
+
+       Name Resolution (ipxnets)
+
+           The ipxnets files are used to correlate 4-byte IPX network numbers to names.
+           First the global ipxnets file is tried and if that address is not found there
+           the personal one is tried next.
+
+           The format is the same as the ethers file, except that each address is four
+           bytes instead of six. Additionally, the address can be represented as a single
+           hexadecimal number, as is more common in the IPX world, rather than four hex
+           octets. For example, these four lines are valid lines of an ipxnets file:
+
+               C0.A8.2C.00              HR
+               c0-a8-1c-00              CEO
+               00:00:BE:EF              IT_Server1
+               110f                     FileServer3
+
+           The global ipxnets file is looked for in the /etc directory on UNIX-compatible
+           systems, such as Linux, macOS, \*BSD, Solaris, and AIX, and in the main
+           installation directory (for example, C:\Program Files\Wireshark) on Windows
+           systems.
+
+           The personal ipxnets file is looked for in the same directory as the personal
+           preferences file.
+
+       Name Resolution (ss7pcs)
+
+           The ss7pcs file is used to translate SS7 point codes to names. It is read from
+           the personal configuration directory.
+
+           Each line in this file consists of one network indicator followed by a dash
+           followed by a point code in decimal and a node name separated by whitespace. An
+           example is:
+
+               2-1234 MyPointCode1
+
+       Name Resolution (vlans)
+
+           The vlans file is used to translate VLAN tag IDs into names. It is read from the
+           personal configuration directory.
+
+           Each line in this file consists of one VLAN tag ID separated by whitespace from
+           a name. An example is:
+
+               123    Server-Lan
+               2049   HR-Client-LAN
+
+       Capture Filters
+
+           The cfilters files contain system-wide and personal capture filters. Each line
+           contains one filter, starting with the string displayed in the dialog box in
+           quotation marks, followed by the filter string itself:
+
+               "HTTP" port 80
+               "DCERPC" port 135
+
+           The global cfilters file uses the same directory as the global preferences file.
+
+           The personal cfilters file uses the same directory as the personal preferences
+           file. It is written through the Capture:Capture Filters dialog.
+
+           If the global cfilters file exists, it is used only if the personal cfilters
+           file does not exist; global and personal capture filters are not merged.
+
+       Display Filters
+
+           The dfilters files contain system-wide and personal display filters. Each line
+           contains one filter, starting with the string displayed in the dialog box in
+           quotation marks, followed by the filter string itself:
+
+               "HTTP" http
+               "DCERPC" dcerpc
+
+           The global dfilters file uses the same directory as the global preferences file.
+
+           The personal dfilters file uses the same directory as the personal preferences
+           file. It is written through the Analyze:Display Filters dialog.
+
+           If the global dfilters file exists, it is used only if the personal dfilters
+           file does not exist; global and personal display filters are not merged.
+
+       Display Filter Macros
+
+           The dmacros files contain system-wide and personal display filter macros. Each
+           line contains one filter, starting with the string displayed in the dialog box
+           in quotation marks, followed by the macro expression itself:
+
+               "private_ipv6" ipv6 && $1 == fc00::/7
+               "private_ethernet" $1[0] & 0x0F == 2
+               "private_ipv4" $1 == 192.168.0.0/16 or $1 == 172.16.0.0/12 or $1 == 10.0.0.0/8
+
+           The global dmacros file uses the same directory as the global preferences file.
+
+           The personal dmacros file uses the same directory as the personal preferences
+           file. It is written through the Analyze:Display Filter Macros dialog.
+
+           If the global dmacros file exists, it is used only if the personal dmacros file
+           does not exist; global and personal display filters are not merged.
+
+           Prior to Wireshark 4.4, a dfilter_macros file with a somewhat different syntax
+           was used. That file is looked for at startup if a dmacros file is not found and
+           used to migrate to the new format.
+
+       Color Filters (Coloring Rules)
+
+           The colorfilters files contain system-wide and personal color filters. Each line
+           contains one filter, starting with the string displayed in the dialog box,
+           followed by the corresponding display filter. Then the background and foreground
+           colors are appended:
+
+               # a comment
+               @tcp@tcp@[59345,58980,65534][0,0,0]
+               @udp@udp@[28834,57427,65533][0,0,0]
+
+           The global colorfilters file uses the same directory as the global preferences
+           file.
+
+           The personal colorfilters file uses the same directory as the personal
+           preferences file. It is written through the View:Coloring Rules dialog.
+
+           If the global colorfilters file exists, it is used only if the personal
+           colorfilters file does not exist; global and personal color filters are not
+           merged.
+
+       Plugins
+
+           Wireshark looks for plugins in both a personal plugin folder and a global plugin
+           folder.
+
+           On UNIX-compatible systems, such as Linux, macOS, \*BSD, Solaris, and AIX, the
+           global plugin directory is lib/wireshark/plugins/ (on some systems substitute
+           lib64 for lib) under the main installation directory (for example,
+           /usr/local/lib/wireshark/plugins/). The personal plugin directory is
+           $HOME/.local/lib/wireshark/plugins.
+
+           On macOS, if Wireshark is installed as an application bundle, the global plugin
+           folder is instead %APPDIR%/Contents/PlugIns/wireshark.
+
+           On Windows, the global plugin folder is plugins/ under the main installation
+           directory (for example, C:\Program Files\Wireshark\plugins\). The personal
+           plugin folder is %APPDATA%\Wireshark\plugins (or, if %APPDATA% isn’t defined,
+           %USERPROFILE%\Application Data\Wireshark\plugins).
+
+           Lua plugins are stored in the plugin folders; compiled plugins are stored in
+           subfolders of the plugin folders, with the subfolder name being the Wireshark
+           minor version number (X.Y). There is another hierarchical level for each
+           Wireshark plugin type (libwireshark, libwiretap and codecs). For example, the
+           location for a libwireshark plugin foo.so (foo.dll on Windows) would be
+           PLUGINDIR/X.Y/epan (libwireshark used to be called libepan; the other folder
+           names are codecs and wiretap).
+
+               Note
+
+               On UNIX-compatible systems, Lua plugins (but not binary plugins) may also be
+               placed in $XDG_CONFIG_HOME/wireshark/plugins, (or, if
+               $XDG_CONFIG_HOME/wireshark does not exist while $HOME/.wireshark does exist,
+               $HOME/.wireshark/plugins.)
+
+           Note that a dissector plugin module may support more than one protocol; there is
+           not necessarily a one-to-one correspondence between dissector plugin modules and
+           protocols. Protocols supported by a dissector plugin module are enabled and
+           disabled in the same way as protocols built into Wireshark.
+
+ENVIRONMENT VARIABLES
+       WIRESHARK_CONFIG_DIR
+
+           This environment variable overrides the location of personal configuration
+           files. On UNIX-compatible systems, such as Linux, macOS, \*BSD, Solaris, and
+           AIX, it defaults to $XDG_CONFIG_HOME/wireshark (or, if that directory doesn’t
+           exist but $HOME/.wireshark does exist, $HOME/.wireshark); this is typically
+           $HOME/.config/wireshark. On Windows, it defaults to %APPDATA%\Wireshark (or, if
+           %APPDATA% isn’t defined, %USERPROFILE%\Application Data\Wireshark). Available
+           since Wireshark 3.0.
+
+       WIRESHARK_DEBUG_WMEM_OVERRIDE
+           Setting this environment variable forces the wmem framework to use the specified
+           allocator backend for all allocations, regardless of which backend is normally
+           specified by the code. This is mainly useful to developers when testing or
+           debugging. See README.wmem in the source distribution for details.
+
+       WIRESHARK_RUN_FROM_BUILD_DIRECTORY
+           This environment variable causes the plugins and other data files to be loaded
+           from the build directory (where the program was compiled) rather than from the
+           standard locations. It has no effect when the program in question is running
+           with root (or setuid) permissions on UNIX-compatible systems, such as Linux,
+           macOS, \*BSD, Solaris, and AIX.
+
+       WIRESHARK_DATA_DIR
+           This environment variable causes the various data files to be loaded from a
+           directory other than the standard locations. It has no effect when the program
+           in question is running with root (or setuid) permissions on UNIX-compatible
+           systems.
+
+       WIRESHARK_EXTCAP_DIR
+           This environment variable causes the various extcap programs and scripts to be
+           run from a directory other than the standard locations. It has no effect when
+           the program in question is running with root (or setuid) permissions on
+           UNIX-compatible systems.
+
+       WIRESHARK_PLUGIN_DIR
+           This environment variable causes the various plugins to be loaded from a
+           directory other than the standard locations. It has no effect when the program
+           in question is running with root (or setuid) permissions on UNIX-compatible
+           systems.
+
+       ERF_RECORDS_TO_CHECK
+           This environment variable controls the number of ERF records checked when
+           deciding if a file really is in the ERF format. Setting this environment
+           variable a number higher than the default (20) would make false positives less
+           likely.
+
+       IPFIX_RECORDS_TO_CHECK
+           This environment variable controls the number of IPFIX records checked when
+           deciding if a file really is in the IPFIX format. Setting this environment
+           variable a number higher than the default (20) would make false positives less
+           likely.
+
+       WIRESHARK_ABORT_ON_DISSECTOR_BUG
+           If this environment variable is set, Wireshark will call abort(3) when a
+           dissector bug is encountered. abort(3) will cause the program to exit
+           abnormally; if you are running Wireshark in a debugger, it should halt in the
+           debugger and allow inspection of the process, and, if you are not running it in
+           a debugger, it will, on some OSes, assuming your environment is configured
+           correctly, generate a core dump file. This can be useful to developers
+           attempting to troubleshoot a problem with a protocol dissector.
+
+       WIRESHARK_ABORT_ON_TOO_MANY_ITEMS
+           If this environment variable is set, Wireshark will call abort(3) if a dissector
+           tries to add too many items to a tree (generally this is an indication of the
+           dissector not breaking out of a loop soon enough). abort(3) will cause the
+           program to exit abnormally; if you are running Wireshark in a debugger, it
+           should halt in the debugger and allow inspection of the process, and, if you are
+           not running it in a debugger, it will, on some OSes, assuming your environment
+           is configured correctly, generate a core dump file. This can be useful to
+           developers attempting to troubleshoot a problem with a protocol dissector.
+
+       WIRESHARK_QUIT_AFTER_CAPTURE
+           Cause Wireshark to exit after the end of the capture session. This doesn’t
+           automatically start a capture; you must still use -k to do that. You must also
+           specify an autostop condition, e.g. -c or -a duration:.... This means that you
+           will not be able to see the results of the capture after it stops; it’s
+           primarily useful for testing.
+
+       WIRESHARK_LOG_LEVEL
+           This environment variable controls the verbosity of diagnostic messages to the
+           console. From less verbose to most verbose levels can be critical, warning,
+           message, info, debug or noisy. Levels above the current level are also active.
+           Levels critical and error are always active.
+
+       WIRESHARK_LOG_FATAL
+           Sets the fatal log level. Fatal log levels cause the program to abort. This
+           level can be set to Error, critical or warning. Error is always fatal and is the
+           default.
+
+       WIRESHARK_LOG_DOMAINS
+           This environment variable selects which log domains are active. The filter is
+           given as a case-insensitive comma separated list. If set only the included
+           domains will be enabled. The default domain is always considered to be enabled.
+           Domain filter lists can be preceded by '!' to invert the sense of the match.
+
+       WIRESHARK_LOG_DEBUG
+           List of domains with debug log level. This sets the level of the provided log
+           domains and takes precedence over the active domains filter. If preceded by '!'
+           this disables the debug level instead.
+
+       WIRESHARK_LOG_NOISY
+           Same as above but for noisy log level instead.
+
+AUTHORS
+       Wireshark would not be the powerful, featureful application it is without the
+       generous contributions of hundreds of developers.
+
+       A complete list of authors can be found in the AUTHORS file in Wireshark’s source
+       code repository and at https://www.wireshark.org/about.html#authors.
+
+SEE ALSO
+       wireshark-filter(4), tshark(1), editcap(1), pcap(3), dumpcap(1), mergecap(1),
+       text2pcap(1), pcap-filter(7) or tcpdump(8)
+
+NOTES
+       This is the manual page for Wireshark 4.4.3. The latest version of Wireshark can be
+       found at https://www.wireshark.org/.
+
+       HTML versions of the Wireshark project man pages are available at
+       https://www.wireshark.org/docs/man-pages/.
+
+       The Wireshark’s User Guide is available at
+       https://www.wireshark.org/docs/wsug_html_chunked/.
+
+                                         2025-01-09                            WIRESHARK(1)
