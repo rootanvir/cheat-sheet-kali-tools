@@ -78,5 +78,5 @@ Look for `[ WPA handshake: <BSSID> ]` at the top of the output.
 
 ## 6.Bruteforce using aircrack-ng
 ```bash
-sudo aircrack-ng <your_capture_file.cp> -w <possible_passwordlist.txt>
+sudo aircrack-ng <your_capture_file.cap> -w <possible_passwordlist.txt>
 ```
