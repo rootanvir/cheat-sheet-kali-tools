@@ -20,7 +20,7 @@
 # Bluetooth
 | Type | Description   | Logo |
 | ---- | ------------- | ----- |
-| [BluetoothCTL](./tools/bluetoothctl.md) |Bluetooth is a standard for the short-range wireless interconnection of cellular phones, computers, and other electronic devices. | <img src="https://github.com/user-attachments/assets/ab5b0244-95fb-4296-94fc-8f159e1248e5" width="50"/> |
+| [BluetoothCTL](./tools/bluetoothctl.md) |Bluetooth is a standard for the short-range wireless interconnection of cellular phones, computers, and other electronic devices. | <img src="https://github.com/user-attachments/assets/ab5b0244-95fb-4296-94fc-8f159e1248e5" width="100"/> |
 
 # Web Hacking
 | Type | Description   | Logo |
