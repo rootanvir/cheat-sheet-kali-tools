@@ -1,4 +1,4 @@
-# Cheat Tools Sheet Kali
+# Cheat Sheet Tools Kali
 
 | Tool | Description   | Logo |
 | ---- | ------------- | ----- |
@@ -27,5 +27,13 @@
 | Type | Description   | Logo |
 | ---- | ------------- | ----- |
 | [Sql Injection](./web/sqlinjection.md) |A SQL injection attack consists of insertion or “injection” of a SQL query via the input data from the client to the application.| <img src="https://github.com/user-attachments/assets/f225db73-3236-4fce-859e-42e34cdf10f4" width="100"/> |
-
+# Automated Vulnerability Scanners
+| Scanner | Description | Logo |
+|---------|-------------|------|
+| **[Nessus](https://www.tenable.com/products/nessus)** | Comprehensive network vulnerability assessment. | <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Nessus-Professional-FullColor-RGB.svg" width="100"/> |
+| **[OpenVAS](https://www.openvas.org/)** | Open-source security scanner for detecting misconfigurations. | <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*ssgbiwYHOi9gIXt9pGCJYw.png" width="100"/> |
+| **[Burp Suite](https://portswigger.net/burp)** | Web application security testing with automated scanning. | <img src="https://w7.pngwing.com/pngs/276/718/png-transparent-burp-suite-alt-macos-bigsur-icon-thumbnail.png" width="100"/> |
+| **[QualysGuard](https://www.qualys.com/)** | Cloud-based scanner for compliance and vulnerability management. | <img src="https://www.cadre.net/hs-fs/hubfs/Vendor%20Logos/Qualys_361x382.jpg?width=361&height=382&name=Qualys_361x382.jpg" width="100"/> |
+| **[Nikto](https://cirt.net/nikto2)** | Web server scanner for outdated software and misconfigurations. | <img src="https://www.kali.org/tools/nikto/images/nikto-logo.svg" width="100"/> |
+| **[Acunetix](https://www.acunetix.com/)** | AI-driven web vulnerability scanner for detecting SQLi, XSS, and more. | <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Acunetix_logo.png" width="100"/> |
 
