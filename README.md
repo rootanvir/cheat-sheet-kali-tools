@@ -23,6 +23,7 @@
 | ---- | ------------- | ----- |
 | [BluetoothCTL](./tools/bluetoothctl.md) |Bluetooth is a standard for the short-range wireless interconnection of cellular phones, computers, and other electronic devices. | <img src="https://github.com/user-attachments/assets/ab5b0244-95fb-4296-94fc-8f159e1248e5" width="100"/> |
 | [l2ping](./tools/l2ping.md) |l2ping is a Linux tool used to test Bluetooth connectivity by sending L2CAP echo requests, similar to network ping. It helps diagnose Bluetooth reachability, latency, and connection stability issues. | <img src="https://github.com/user-attachments/assets/ab5b0244-95fb-4296-94fc-8f159e1248e5" width="100"/> |
+| [Beta](./tools/bluetooth.jpg) | All about bluetooth | <img src="https://github.com/user-attachments/assets/ab5b0244-95fb-4296-94fc-8f159e1248e5" width="100"/> |
 
 # Web Hacking
 | Type | Description   | Logo |
