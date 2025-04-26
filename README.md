@@ -30,6 +30,7 @@
 | ---- | ------------- | ----- |
 | [Sql Injection](./web/sqlinjection.md) |A SQL injection attack consists of insertion or “injection” of a SQL query via the input data from the client to the application.| <img src="https://github.com/user-attachments/assets/f225db73-3236-4fce-859e-42e34cdf10f4" width="100"/> |
 | [Slowloris](./web/slowloris.md) |Slowloris is basically an HTTP Denial of Service attack that affects threaded servers. It works like this: This exhausts the servers thread pool..| <img src="https://ourcodeworld.com/public-media/articles/articleocw-5d004250b1db7.png" width="100"/> |
+| [XSStrike](./web/xsstrike.md) |XSStrike is a tool designed to detect Cross-Site Scripting (XSS) vulnerabilities. It has four parsers and an intelligent payload generator, making it different from other tools. | <img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*73-E4Ha0o9q-oDRpPXTLIw.png" width="100"/> |
 # Automated Vulnerability Scanners
 | Scanner | Description | Logo |
 |---------|-------------|------|
