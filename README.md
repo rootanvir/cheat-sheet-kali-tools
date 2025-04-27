@@ -31,6 +31,14 @@
 | [Sql Injection](./web/sqlinjection.md) |A SQL injection attack consists of insertion or “injection” of a SQL query via the input data from the client to the application.| <img src="https://github.com/user-attachments/assets/f225db73-3236-4fce-859e-42e34cdf10f4" width="100"/> |
 | [Slowloris](./web/slowloris.md) |Slowloris is basically an HTTP Denial of Service attack that affects threaded servers. It works like this: This exhausts the servers thread pool..| <img src="https://ourcodeworld.com/public-media/articles/articleocw-5d004250b1db7.png" width="100"/> |
 | [XSStrike](./web/xsstrike.md) |XSStrike is a tool designed to detect Cross-Site Scripting (XSS) vulnerabilities. It has four parsers and an intelligent payload generator, making it different from other tools. | <img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*73-E4Ha0o9q-oDRpPXTLIw.png" width="100"/> |
+
+# Cryptography
+| Type | Description   | Logo |
+| ---- | ------------- | ----- |
+|[RSA](./cryptography/rsa.md)|The RSA (Rivest–Shamir–Adleman) cryptosystem is a public-key cryptosystem, one of the oldest widely used for secure data transmission.|<img src="https://images.birmiss.com/image/da37f46e7e4f0ed9.jpg" width="100"/>|
+|[SHA256](./cryptography/sha256.md)|SHA256 is a cryptographic hash function that produces a 256-bit hash value, which is used to verify data integrity and authenticity.|<img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/sha-256-9683859-7847418.png?f=webp&w=256" width="100"/>|
+
+
 # Automated Vulnerability Scanners
 | Scanner | Description | Logo |
 |---------|-------------|------|
