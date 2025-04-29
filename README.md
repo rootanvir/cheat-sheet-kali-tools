@@ -37,7 +37,7 @@
 | ---- | ------------- | ----- |
 |[RSA](./cryptography/rsa.md)|The RSA (Rivest–Shamir–Adleman) cryptosystem is a public-key cryptosystem, one of the oldest widely used for secure data transmission.|<img src="https://images.birmiss.com/image/da37f46e7e4f0ed9.jpg" width="100"/>|
 |[SHA256](./cryptography/sha256.md)|SHA256 is a cryptographic hash function that produces a 256-bit hash value, which is used to verify data integrity and authenticity.|<img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/sha-256-9683859-7847418.png?f=webp&w=256" width="100"/>|
-
+|[STEGHIDE](./cryptography/steghide.md)|Steghide is a steganography program that is able to hide data in various kinds of image and audio files..|<img src="https://steghide.sourceforge.net/images/logo.png" width="100"/>|
 
 # Automated Vulnerability Scanners
 | Scanner | Description | Logo |
