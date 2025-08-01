@@ -49,3 +49,8 @@
 | **[Nikto](https://cirt.net/nikto2)** | Web server scanner for outdated software and misconfigurations. | <img src="https://www.kali.org/tools/nikto/images/nikto-logo.svg" width="100"/> |
 | **[Acunetix](https://www.acunetix.com/)** | AI-driven web vulnerability scanner for detecting SQLi, XSS, and more. | <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Acunetix_logo.png" width="100"/> |
 
+| **[Spiderfoot](#)** | Loading . | <img src="" width="100"/> |
+
+--- 
+**[Spiderfoot]()** 
+
