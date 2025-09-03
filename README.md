@@ -50,3 +50,11 @@
 | **[Acunetix](https://www.acunetix.com/)** | AI-driven web vulnerability scanner for detecting SQLi, XSS, and more. | <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Acunetix_logo.png" width="100"/> |
 |**[Spiderfoot](https://github.com/smicallef/spiderfoot)** |Gathering intelligence about a given target, which may be an IP address, domain name, hostname, network subnet, ASN, e-mail address or person’s name. | <img src="https://www.kali.org/tools/spiderfoot/images/spiderfoot-logo.svg" width="100"/> |
 
+
+# Security Operation Center (SOC)
+| Scanner | Description | Logo |
+|---------|-------------|------|
+| **[ATT&CK](https://attack.mitre.org/)** | MITRE ATT&CK® is a globally-accessible knowledge base of adversary tactics and techniques based on real-world observations.  | <img src="https://attack.mitre.org/theme/images/ATT&CK_red.png" width="100"/> |
+| **[Snort](https://www.snort.org/)** | Snort is the foremost Open Source Intrusion Prevention System (IPS) in the world. | <img src="https://www.rapid7.com/cdn/assets/bltae99b55e97ffb716/683de1003a1c5afc7f4ba89e/thumb-snort.jpg" width="100"/> |
+| **[VirusTotal](https://www.virustotal.com/)** | Analyse suspicious files, domains, IPs and URLs to detect malware and other breaches, automatically share them with the security community | <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/VirusTotal_logo.svg" width="100"/> |
+
