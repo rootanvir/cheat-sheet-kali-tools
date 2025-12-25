@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="L2qhuHZr49n9scEDw3kKgA7z_0WEZlEGEqylMVIuar4" />
+    <meta name="google-site-verification" content="QoEvjpSJ6QXRo9bN5Mjmm7JwQfR4kXltjebadxDlLQk" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Comprehensive cheat sheet for Kali Linux tools covering network scanning, password cracking, wireless attacks, web vulnerabilities, cryptography, automated scanners, and SOC tools. Essential for penetration testing and ethical hacking.">
@@ -43,7 +43,7 @@
         h1 {
             font-size: 2.8rem;
             margin: 20px 0;
-            color: #FFFFFF;
+            color: #58a6ff;
         }
         p.subtitle {
             font-size: 1.2rem;
@@ -90,41 +90,20 @@
             margin-right: 10px;
             filter: invert(1);
         }
-        #readme-content {
-            max-width: 1000px;
+        .placeholder {
+            max-width: 800px;
             margin: 0 auto;
-            text-align: left;
             background: #161b22;
-            padding: 30px;
+            padding: 40px;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-            line-height: 1.6;
         }
-        #readme-content h1, #readme-content h2, #readme-content h3 {
+        .placeholder h2 {
             color: #58a6ff;
-            border-bottom: 1px solid #30363d;
-            padding-bottom: 8px;
-        }
-        #readme-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        #readme-content th, #readme-content td {
-            border: 1px solid #30363d;
-            padding: 12px;
-            text-align: left;
-        }
-        #readme-content th {
-            background: #21262d;
         }
         footer {
             margin-top: 80px;
             font-size: 0.9rem;
-            color: #8b949e;
-        }
-        .loading {
-            font-style: italic;
             color: #8b949e;
         }
     </style>
@@ -136,47 +115,20 @@
         
         <div class="buttons">
             <a href="https://github.com/rootanvir/cheat-sheet-kali-tools" class="github-btn view-btn" target="_blank">
-                <img src=https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" class="github-icon">
+                <img src="https://commons.wikimedia.org/wiki/File:Octicons-mark-github.svg#/media/File:Octicons-mark-github.svg" alt="GitHub" class="github-icon">
                 View on GitHub
             </a>
             
             <a href="https://github.com/rootanvir/cheat-sheet-kali-tools" class="github-btn star-btn" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" class="github-icon">
+                <img src="https://commons.wikimedia.org/wiki/File:Octicons-mark-github.svg#/media/File:Octicons-mark-github.svg" alt="GitHub" class="github-icon">
                 ⭐ Star on GitHub
             </a>
         </div>
     </header>
 
-    <div id="readme-content">
-        <p class="loading">Loading README.md content...</p>
-    </div>
 
     <footer>
-        Maintained by rootanvir • Last updated dynamically from GitHub
+        Maintained by rootanvir • © 2025
     </footer>
-
-    <script>
-        // Fetch and render the raw README.md from GitHub, converted to HTML via GitHub API
-        fetch('https://api.github.com/repos/rootanvir/cheat-sheet-kali-tools/readme')
-            .then(response => response.json())
-            .then(data => {
-                // GitHub returns base64 encoded content
-                const markdown = atob(data.content);
-                
-                // Use marked.js from CDN to convert Markdown to HTML
-                const script = document.createElement('script');
-                script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
-                script.onload = () => {
-                    const html = marked.parse(markdown);
-                    document.getElementById('readme-content').innerHTML = html;
-                };
-                document.head.appendChild(script);
-            })
-            .catch(err => {
-                document.getElementById('readme-content').innerHTML = 
-                    '<p style="color:#f85149;">Failed to load README. Please visit the <a href="https://github.com/rootanvir/cheat-sheet-kali-tools" style="color:#58a6ff;">GitHub repository</a> directly.</p>';
-                console.error(err);
-            });
-    </script>
 </body>
 </html>
