@@ -16,14 +16,14 @@
     <meta property="og:description" content="Detailed cheat sheet for essential Kali Linux tools used in penetration testing, ethical hacking, network scanning, and more.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rootanvir.github.io/cheat-sheet-kali-tools/">
-    <meta property="og:image" content="https://www.kali.org/wallpapers/images/2024/kali-light2.png">
+    <meta property="og:image" content="https://www.kali.org/images/logo.svg">
     <meta property="og:site_name" content="Cheat Sheet Kali Tools">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Cheat Sheet Kali Tools - Ultimate Kali Linux Guide">
     <meta name="twitter:description" content="Comprehensive cheat sheet for Kali Linux penetration testing tools.">
-    <meta name="twitter:image" content="https://www.kali.org/wallpapers/images/2024/kali-light2.png">
+    <meta name="twitter:image" content="https://www.kali.org/images/logo.svg">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://rootanvir.github.io/cheat-sheet-kali-tools/">
@@ -31,7 +31,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0d1117; /* GitHub dark background */
+            background: #0d1117;
             color: #c9d1d9;
             margin: 0;
             padding: 40px 20px;
@@ -55,6 +55,7 @@
             gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 60px;
         }
         .github-btn {
             display: inline-flex;
@@ -87,11 +88,43 @@
             width: 24px;
             height: 24px;
             margin-right: 10px;
-            filter: invert(1); /* White icon on dark bg */
+            filter: invert(1);
+        }
+        #readme-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: left;
+            background: #161b22;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            line-height: 1.6;
+        }
+        #readme-content h1, #readme-content h2, #readme-content h3 {
+            color: #58a6ff;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 8px;
+        }
+        #readme-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        #readme-content th, #readme-content td {
+            border: 1px solid #30363d;
+            padding: 12px;
+            text-align: left;
+        }
+        #readme-content th {
+            background: #21262d;
         }
         footer {
             margin-top: 80px;
             font-size: 0.9rem;
+            color: #8b949e;
+        }
+        .loading {
+            font-style: italic;
             color: #8b949e;
         }
     </style>
@@ -102,24 +135,48 @@
         <p class="subtitle">Your ultimate reference for essential Kali Linux penetration testing and ethical hacking tools – Nmap, Hydra, Metasploit, Sqlmap, and many more.</p>
         
         <div class="buttons">
-            <!-- View on GitHub Button -->
             <a href="https://github.com/rootanvir/cheat-sheet-kali-tools" class="github-btn view-btn" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" class="github-icon">
+                <img src="https://github.githubassets.com/images/modules/logos_icon/github-mark.svg" alt="GitHub" class="github-icon">
                 View on GitHub
             </a>
             
-            <!-- Star on GitHub Button -->
             <a href="https://github.com/rootanvir/cheat-sheet-kali-tools" class="github-btn star-btn" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" class="github-icon">
+                <img src="https://github.githubassets.com/images/modules/logos_icon/github-mark.svg" alt="GitHub" class="github-icon">
                 ⭐ Star on GitHub
             </a>
         </div>
     </header>
 
-    <!-- You can add your cheat sheet content/tables here -->
+    <div id="readme-content">
+        <p class="loading">Loading README.md content...</p>
+    </div>
 
     <footer>
-        Maintained by rootanvir • Last updated: 2025
+        Maintained by rootanvir • Last updated dynamically from GitHub
     </footer>
+
+    <script>
+        // Fetch and render the raw README.md from GitHub, converted to HTML via GitHub API
+        fetch('https://api.github.com/repos/rootanvir/cheat-sheet-kali-tools/readme')
+            .then(response => response.json())
+            .then(data => {
+                // GitHub returns base64 encoded content
+                const markdown = atob(data.content);
+                
+                // Use marked.js from CDN to convert Markdown to HTML
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+                script.onload = () => {
+                    const html = marked.parse(markdown);
+                    document.getElementById('readme-content').innerHTML = html;
+                };
+                document.head.appendChild(script);
+            })
+            .catch(err => {
+                document.getElementById('readme-content').innerHTML = 
+                    '<p style="color:#f85149;">Failed to load README. Please visit the <a href="https://github.com/rootanvir/cheat-sheet-kali-tools" style="color:#58a6ff;">GitHub repository</a> directly.</p>';
+                console.error(err);
+            });
+    </script>
 </body>
 </html>
